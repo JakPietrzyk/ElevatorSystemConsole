@@ -1,0 +1,15 @@
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\bin\Debug\net7.0\ElevatorSystemConsole.exe
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\bin\Debug\net7.0\ElevatorSystemConsole.deps.json
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\bin\Debug\net7.0\ElevatorSystemConsole.runtimeconfig.json
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\bin\Debug\net7.0\ElevatorSystemConsole.dll
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\bin\Debug\net7.0\ElevatorSystemConsole.pdb
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.csproj.AssemblyReference.cache
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.GeneratedMSBuildEditorConfig.editorconfig
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.AssemblyInfoInputs.cache
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.AssemblyInfo.cs
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.csproj.CoreCompileInputs.cache
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.dll
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\refint\ElevatorSystemConsole.dll
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.pdb
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ElevatorSystemConsole.genruntimeconfig.cache
+C:\c#_MyProjects\ElevatorSystemConsole\ElevatorSystemConsole\obj\Debug\net7.0\ref\ElevatorSystemConsole.dll
