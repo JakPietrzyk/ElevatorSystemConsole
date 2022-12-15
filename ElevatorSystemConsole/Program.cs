@@ -13,33 +13,49 @@ namespace Program
     {
         static void Main(string[] args)
         {
-            Elevator elevator = new Elevator();
-           Elevator elevator1= new Elevator();
-            QueueManager peopleFloors= new QueueManager();
+            ElevatorManager elevatorManager = new ElevatorManager(1);
+
+
+            QueueManager peopleFloors = new QueueManager();
             peopleFloors.AddSort(0, 2);
-            peopleFloors.AddSort(1, 3);
-            peopleFloors.AddSort(2, 0);
+            peopleFloors.AddSort(1, 4);
+            peopleFloors.AddSort(3, 1);
 
-            foreach(var x in peopleFloors.peopleFloors)
+            //foreach (var x in peopleFloors.peopleFloors)
+            //{
+            //    //elevator.AddPFR(x);
+            //    foreach(Elevator ele in elevatorManager.elevators)
+            //    {
+            //        ele.AddPFR(x);
+            //    }
+            //}
+            foreach(var people in peopleFloors.peopleFloors)
             {
-                elevator.AddPFR(x);
+                elevatorManager.AddFloor(people);
             }
+            //elevatorManager.GiveOrdersToElevator();
+            var task2 = Task.Run(() =>
+            {
+                elevatorManager.GiveOrdersToElevator();
 
-
+            });
             var task = Task.Run(() =>
             {
-                elevator.Run();
+                elevatorManager.elevators[0].RunWithElevatorManager();
             });
+            
+            //var runElevator2 = Task.Run(() =>
+            //{
+            //    elevatorManager.elevators[1].Run();
+            //});
             //var task2 = Task.Run(() => {
             //    elevator.AddFloorsAsync();
             //});
-            var task2 = Task.Run(()=>
-            { 
-                elevator.AddPFRAsync(); 
+            //var task2 = Task.Run(()=>
+            //{ 
+            //    elevator.AddPFRAsync(); 
             
-            });
-            Console.WriteLine(elevator.Id);
-            Console.WriteLine(elevator1.Id);
+            //});
 
             ////elevator.AddNewFloor(5);
             task.Wait();
@@ -52,8 +68,12 @@ namespace Program
 
 
 
-/* todo:: elevator manager class to creaate multiple elevetors, but only one queue foreach
- * check if elevator will stop after getting request if has nothing to do
+/* elevatorManager trzyma kolejke up i down i rodzdziela zadania do wind dodając elementy do kolejki floor
+ * 
+ * WARNINNG: ELEVATOR NIE UWZGLEDNIA CURRENFLOOR PERSON DO ZATRZYMANIA SIE  gdy jest (0,2) i (1,4) to sie nie zatrzymuje na 1 floor, a jedzie na 4
+ * 
+ * 
+ * 
  * 
  * 
  * 

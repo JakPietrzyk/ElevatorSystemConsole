@@ -9,10 +9,17 @@ namespace ElevatorSystemConsole
 {
     public class Elevator
     {
-        public int Id { get; set; }
         static int nextId;
+
+
+        public int Id { get; set; }
+        public bool isRunning { get; set; }
+        public string direction { get; set; }
+        public int idleFloor { get; set; }
         public int currentFloor { get; set; }
         public int nextFloor { get; set; }
+        public int maxFloor { get; set; }
+        public int minFloor { get; set; }
         public List<int> floorQueue { get; set; }
         public List<PersonFloorRequest> floorRequests { get; set; }
         public List<int> floorUp { get; set; }
@@ -21,6 +28,9 @@ namespace ElevatorSystemConsole
 
         public Elevator() 
         {
+            isRunning = false;
+            maxFloor = 5;
+            minFloor = 0;
             Id = Interlocked.Increment(ref nextId);
             currentFloor = 0;
             nextFloor = 0;
@@ -28,6 +38,16 @@ namespace ElevatorSystemConsole
             floorRequests= new List<PersonFloorRequest>();
             floorUp = new List<int>();
             floorDown = new List<int>();
+            if (Id % 2 != 0)
+            {
+                direction = "up";
+                idleFloor = minFloor;
+            }
+            else
+            {
+                direction = "down";
+                idleFloor = maxFloor; //max floor
+            }
         }
         public void AddNewFloor(int floor)
         {
@@ -37,32 +57,95 @@ namespace ElevatorSystemConsole
         {
             floorQueue.Remove(floor);
         }
+        public async Task RunWithElevatorManager()
+        {
+            while (true)
+            {
+                //while(isRunning==true)
+                //{
+                    if(direction == "up")
+                    {
+                        while(floorQueue.Count>0)
+                        {
+                            nextFloor = floorQueue.First();
+                            floorQueue.Remove(floorQueue.First());
+                            Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor,direction);
+                            while (currentFloor != nextFloor)
+                            {
+                                if (currentFloor > nextFloor)
+                                {
+                                    currentFloor--;
+                                }
+                                else
+                                {
+                                    currentFloor++;
+                                }
+
+                                Thread.Sleep(2000);
+                                Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        }
+                            Thread.Sleep(2000);
+                        //currentFloor = nextFloor;
+                        direction = "down";
+                        }
+                    }
+
+                if (direction == "down")
+                {
+                    while (floorQueue.Count > 0)
+                    {
+                        nextFloor = floorQueue.First();
+                        floorQueue.Remove(floorQueue.First());
+                        Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        while (currentFloor != nextFloor)
+                        {
+                            if (currentFloor > nextFloor)
+                            {
+                                currentFloor--;
+                            }
+                            else
+                            {
+                                currentFloor++;
+                            }
+
+                            Thread.Sleep(2000);
+                            Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        }
+                        Thread.Sleep(2000);
+                        //currentFloor = nextFloor;
+                        direction = "up";
+                    }
+                }
+
+                while (floorQueue.Count==0)
+                    {
+                        isRunning= false;
+                        if(currentFloor!=nextFloor)
+                        {
+                            Console.WriteLine("Nothing to do going back to idle floor");
+                        }
+                        nextFloor = idleFloor;
+                        while(currentFloor!=nextFloor)
+                        {
+                            if(currentFloor>nextFloor)
+                            {
+                                currentFloor--;
+                            }
+                            else
+                            {
+                                currentFloor++;
+                            }
+                            Thread.Sleep(2000);
+                            Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        }
+                    }
+                //}
+            }
+        }
         public async Task Run()
         {
             while (true)
             {
-                while (floorQueue.Count > 0)
-                {
-                    nextFloor = floorQueue.First();
-                    floorQueue.Remove(floorQueue.First());
-                    Console.WriteLine("At {0} floor, next floor: {1}", currentFloor, nextFloor);
-                    while(currentFloor!=nextFloor)
-                    {
-                        if(currentFloor<nextFloor)
-                        {
-                            currentFloor++;
-                        }
-                        else
-                        {
-                            currentFloor--;
-                        }
-                        
-                        Thread.Sleep(2000);
-                        Console.WriteLine("At {0} floor, next floor: {1}", currentFloor, nextFloor);
-                    }
-                    Thread.Sleep(2000);
-                    currentFloor = nextFloor;
-                }
                 while(floorQueue.Count == 0 && currentFloor!=0)
                 {
                     currentFloor--;
@@ -70,7 +153,7 @@ namespace ElevatorSystemConsole
                     Console.WriteLine("Nothing to do At {0} floor, next floor: {1}", currentFloor, nextFloor);
                     Thread.Sleep(2000);
                 }
-                while(floorUp.Count > 0) 
+                while(floorUp.Count > 0 && direction == "up") 
                 {
                     nextFloor = floorUp.First();
                     floorUp.Remove(floorUp.First());
@@ -92,7 +175,7 @@ namespace ElevatorSystemConsole
                     Thread.Sleep(2000);
                     currentFloor = nextFloor;
                 }
-                while(floorDown.Count>0)
+                while(floorDown.Count>0 && direction == "down")
                 {
                     nextFloor = floorDown.First();
                     floorDown.Remove(floorDown.First());
@@ -114,6 +197,10 @@ namespace ElevatorSystemConsole
                     Thread.Sleep(2000);
                     currentFloor = nextFloor;
                 }
+
+
+
+
             }
         }
         public async Task AddFloorsAsync()
@@ -127,18 +214,24 @@ namespace ElevatorSystemConsole
         }
         public void AddPFR(PersonFloorRequest pfr)
         {
-            if(!floorQueue.Contains(pfr.destinationFloor))
-            {
+
                 if(pfr.direction=="up")
                 {
-                    floorUp.Add(pfr.destinationFloor);
+                    if(!floorUp.Contains(pfr.destinationFloor))
+                    {
+                        floorUp.Add(pfr.destinationFloor);
+                    }
+                    
                 }
                 else
                 {
-                    floorDown.Add(pfr.destinationFloor);
+                    if(!floorDown.Contains(pfr.destinationFloor))
+                    {
+                        floorDown.Add(pfr.destinationFloor);
+                    }
+                    
                 }
-                //floorQueue.Add(pfr.destinationFloor);
-            }
+
             
         }
         public async Task AddPFRAsync()
@@ -164,6 +257,7 @@ namespace ElevatorSystemConsole
                 }
             }
         }
+        
     }
 
 }
