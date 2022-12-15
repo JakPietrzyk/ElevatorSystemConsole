@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\c#_MyProjects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj": {}
+    "E:\\C#_Projects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj": {}
   },
   "projects": {
-    "C:\\c#_MyProjects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj": {
+    "E:\\C#_Projects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\c#_MyProjects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj",
+        "projectUniqueName": "E:\\C#_Projects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj",
         "projectName": "ElevatorSystemConsole",
-        "projectPath": "C:\\c#_MyProjects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj",
+        "projectPath": "E:\\C#_Projects\\ElevatorSystemConsole\\ElevatorSystemConsole\\ElevatorSystemConsole.csproj",
         "packagesPath": "C:\\Users\\spekt\\.nuget\\packages\\",
-        "outputPath": "C:\\c#_MyProjects\\ElevatorSystemConsole\\ElevatorSystemConsole\\obj\\",
+        "outputPath": "E:\\C#_Projects\\ElevatorSystemConsole\\ElevatorSystemConsole\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\spekt\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -21,6 +21,7 @@
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,6 +39,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "System.Threading.Tasks": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
