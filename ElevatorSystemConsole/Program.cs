@@ -13,6 +13,8 @@ namespace Program
     {
         static void Main(string[] args)
         {
+            //TODO::dodać dwie osobne klassy dla przycisku wewnatrz windy i przed winda
+
             ElevatorManager elevatorManager = new ElevatorManager(1);
 
 
@@ -20,6 +22,7 @@ namespace Program
             peopleFloors.AddSort(0, 2);//up
             peopleFloors.AddSort(1, 4);//up
             peopleFloors.AddSort(3, 1);//down
+            //peopleFloors.AddSort(5, 2);
             //0->1->2->4 | up
             //4->3->1->0 | down
 
@@ -28,27 +31,49 @@ namespace Program
                 elevatorManager.AddFloor(people);
             }
 
+            while(true)
+            {
+                Thread.Sleep(500);
+                //if(elevatorManager.isEmpty==false)
+                //{
+                //    elevatorManager.GiveOrdersToElevator();
+                //    Console.WriteLine("kox");
+                //}
+
+                //elevatorManager.elevators[0].Run();
+                elevatorManager.MakeStep();
+                if (elevatorManager.isEmpty && elevatorManager.elevators[0].idleFloor == elevatorManager.elevators[0].currentFloor)
+                {
+                    elevatorManager.AddRequest();
+                }
+            }
+
+
+
+
+
+
             //elevatorManager.GiveOrdersToElevator();
             //var task2 = Task.Run(() =>
             //{
             //    elevatorManager.GiveOrdersToElevator();
 
             //});
-            var task = Task.Run(() =>
-            {
-                elevatorManager.elevators[0].RunWithElevatorManager();
-            });
-            var task3 = Task.Run(() =>
-            {
-                elevatorManager.GiveOrdersToElevator();
+            //var task = Task.Run(() =>
+            //{
+            //    elevatorManager.elevators[0].RunWithElevatorManager();
+            //});
+            //var task3 = Task.Run(() =>
+            //{
+            //    elevatorManager.GiveOrdersToElevator();
 
-            });
-            var taskRequest = Task.Run(() =>
-            {
+            //});
+            //var taskRequest = Task.Run(() =>
+            //{
 
-                elevatorManager.AddRequestAsync();
-            });
-            task.Wait();
+            //    elevatorManager.AddRequestAsync();
+            //});
+            //task.Wait();
             Console.ReadLine();
             
         }

@@ -26,10 +26,5 @@ namespace ElevatorSystemConsole
                 direction = "up";
             }
         }
-
-        public void AddAndSortRequests(int cur,int dest)
-        {
-
-        }
     }
 }

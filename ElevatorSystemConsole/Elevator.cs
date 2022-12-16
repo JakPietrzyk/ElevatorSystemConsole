@@ -49,6 +49,117 @@ namespace ElevatorSystemConsole
                 idleFloor = maxFloor; //max floor
             }
         }
+        public void MakeStep()
+        {
+
+        }
+        public void Run()
+        {
+                if (direction == "up")
+                {
+                    while (floorQueue.Count > 0)
+                    {
+                        nextFloor = floorQueue.First();
+                        floorQueue.Remove(floorQueue.First());
+                        Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        while (currentFloor != nextFloor)
+                        {
+                            if (currentFloor > nextFloor)
+                            {
+                                currentFloor--;
+                            }
+                            else
+                            {
+                                currentFloor++;
+                            }
+
+                            Thread.Sleep(sleep);
+                            Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        }
+                        Thread.Sleep(sleep);
+                        if (floorQueue.Count == 0)
+                        {
+                            direction = "down";
+                        }
+                        return;
+                    }
+                }
+
+                if (direction == "down")
+                {
+                    while (floorQueue.Count > 0)
+                    {
+                        nextFloor = floorQueue.First();
+                        floorQueue.Remove(floorQueue.First());
+                        Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        while (currentFloor != nextFloor)
+                        {
+                            if (currentFloor > nextFloor)
+                            {
+                                currentFloor--;
+                            }
+                            else
+                            {
+                                currentFloor++;
+                            }
+
+                            Thread.Sleep(sleep);
+                            Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                        }
+                        Thread.Sleep(sleep);
+                        //currentFloor = nextFloor;
+                        direction = "up";
+                        return;
+                    }
+                }
+                Thread.Sleep(sleep * 5);//winda powinna czekać aż dostanie nowa kolejke 
+                
+                if (floorQueue.Count == 0)
+                {
+
+                    isRunning = false;
+                    nextFloor = idleFloor;
+                    if (currentFloor != nextFloor)
+                    {
+                        Console.WriteLine("Nothing to do going back to idle floor");
+                    }
+                    
+                    if (currentFloor != nextFloor)
+                    {
+                        if (currentFloor > nextFloor)
+                        {
+                            currentFloor--;
+                        }
+                        else
+                        {
+                            currentFloor++;
+                        }
+                        Thread.Sleep(sleep);
+                        Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
+                    }
+                }
+                //}
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public void AddNewFloor(int floor)
         {
             floorQueue.Add(floor);
@@ -57,7 +168,7 @@ namespace ElevatorSystemConsole
         {
             floorQueue.Remove(floor);
         }
-        public async Task RunWithElevatorManager()
+        public async Task RunWithElevatorManagerAsync()
         {
             while (true)
             {
@@ -208,71 +319,8 @@ namespace ElevatorSystemConsole
 
 
 
-        public async Task InactiveRun()
-        {
-            while (true)
-            {
-                while (floorQueue.Count == 0 && currentFloor != 0)
-                {
-                    currentFloor--;
-                    nextFloor = 0;
-                    Console.WriteLine("Nothing to do At {0} floor, next floor: {1}", currentFloor, nextFloor);
-                    Thread.Sleep(2000);
-                }
-                while (floorUp.Count > 0 && direction == "up")
-                {
-                    nextFloor = floorUp.First();
-                    floorUp.Remove(floorUp.First());
-                    Console.WriteLine("At {0} floor, next floor: {1}", currentFloor, nextFloor);
-                    while (currentFloor != nextFloor)
-                    {
-                        if (currentFloor < nextFloor)
-                        {
-                            currentFloor++;
-                        }
-                        else
-                        {
-                            currentFloor--;
-                        }
-
-                        Thread.Sleep(2000);
-                        Console.WriteLine("At {0} floor, next floor: {1}", currentFloor, nextFloor);
-                    }
-                    Thread.Sleep(2000);
-                    currentFloor = nextFloor;
-                }
-                while (floorDown.Count > 0 && direction == "down")
-                {
-                    nextFloor = floorDown.First();
-                    floorDown.Remove(floorDown.First());
-                    Console.WriteLine("At {0} floor, next floor: {1}", currentFloor, nextFloor);
-                    while (currentFloor != nextFloor)
-                    {
-                        if (currentFloor < nextFloor)
-                        {
-                            currentFloor++;
-                        }
-                        else
-                        {
-                            currentFloor--;
-                        }
-
-                        Thread.Sleep(2000);
-                        Console.WriteLine("At {0} floor, next floor: {1}", currentFloor, nextFloor);
-                    }
-                    Thread.Sleep(2000);
-                    currentFloor = nextFloor;
-                }
-
-
-
-
-            }
-        }
-        public void MakeStep()
-        {
-
-        }
+        
+        
     }
 
 }
