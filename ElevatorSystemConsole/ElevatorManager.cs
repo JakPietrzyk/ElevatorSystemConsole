@@ -30,16 +30,42 @@ namespace ElevatorSystemConsole
             if(pfr.direction=="up")
             {
                 floorUp.Add(pfr.destinationFloor);
+                floorUp.Add(pfr.currentFloor);
+                floorUp.Sort();
             }
             else
             {
                 floorDown.Add(pfr.destinationFloor);
+                floorDown.Add(pfr.currentFloor);
+                floorDown.Sort();
+                floorDown.Reverse();
             }
             isEmpty = false;
         }
+        public async Task AddRequestAsync()
+        {
+            while (true)
+            {
+                string uinput = Console.ReadLine();
+                int cur = int.Parse(uinput);
+                uinput = Console.ReadLine();
+                int dest = int.Parse(uinput);
+                PersonFloorRequest pfr = new PersonFloorRequest(cur, dest);
+                AddFloor(pfr);
+
+            }
+        }
+
+
+
+        public void AddFloorInt(int floor)
+        {
+
+        }
         public async Task GiveOrdersToElevator()
         {
-            while(isEmpty == false)
+            //while(isEmpty == false)
+            while(true)
             {
 
                 //można sprawdzać czy floorQueue jest puste czy nie i w oparciu o to dodawać zadania
@@ -64,11 +90,11 @@ namespace ElevatorSystemConsole
                             elevators[i].floorQueue.AddRange(floorDown);
                             elevators[i].direction = "down";
                             elevators[i].isRunning = true;
-                            floorUp.Clear();
+                            floorDown.Clear();
                         }
                             
                     }
-                    else if (elevators[i].direction == "up")
+                    else if (elevators[i].direction == "up" && floorUp.Count>0)
                     {
                         if (!elevators[i].floorQueue.Contains(floorUp.First()))
                         {
@@ -79,14 +105,14 @@ namespace ElevatorSystemConsole
                         }
                            
                     }
-                    else if (elevators[i].direction == "down")
+                    else if (elevators[i].direction == "down" && floorDown.Count>0)
                     {
                         if (!elevators[i].floorQueue.Contains(floorDown.First()))
                         {
                             elevators[i].floorQueue.AddRange(floorDown);
                             //elevators[i].direction = "down";
                             elevators[i].isRunning = true;
-                            floorUp.Clear();
+                            floorDown.Clear();
                         }
                             
                     }
@@ -98,5 +124,7 @@ namespace ElevatorSystemConsole
 
             }
         }
+        
+
     }
 }

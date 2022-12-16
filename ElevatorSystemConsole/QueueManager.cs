@@ -9,11 +9,13 @@ namespace ElevatorSystemConsole
     public class QueueManager
     {
         public List<PersonFloorRequest> peopleFloors { get; set; }
+        public List<int> peopleFloorsInt { get; set; }
 
 
 
         public QueueManager() {
             peopleFloors = new();
+            peopleFloorsInt = new();
         }
         private static int CompareDest(PersonFloorRequest x,PersonFloorRequest y)
         {
@@ -31,7 +33,15 @@ namespace ElevatorSystemConsole
         public void AddSort(int cur, int dest)
         {
             peopleFloors.Add(new PersonFloorRequest(cur, dest));
-            peopleFloors.Sort(CompareDest);
+            //peopleFloors.Sort(CompareDest);
+        }
+
+
+        public void AddSortTuple(int cur, int dest)
+        {
+            peopleFloorsInt.Add(cur);
+            peopleFloorsInt.Add(dest);
+            peopleFloorsInt.Sort();
         }
     }
 }

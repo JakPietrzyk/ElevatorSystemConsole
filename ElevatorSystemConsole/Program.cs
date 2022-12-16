@@ -17,47 +17,37 @@ namespace Program
 
 
             QueueManager peopleFloors = new QueueManager();
-            peopleFloors.AddSort(0, 2);
-            peopleFloors.AddSort(1, 4);
-            peopleFloors.AddSort(3, 1);
+            peopleFloors.AddSort(0, 2);//up
+            peopleFloors.AddSort(1, 4);//up
+            peopleFloors.AddSort(3, 1);//down
+            //0->1->2->4 | up
+            //4->3->1->0 | down
 
-            //foreach (var x in peopleFloors.peopleFloors)
-            //{
-            //    //elevator.AddPFR(x);
-            //    foreach(Elevator ele in elevatorManager.elevators)
-            //    {
-            //        ele.AddPFR(x);
-            //    }
-            //}
             foreach(var people in peopleFloors.peopleFloors)
             {
                 elevatorManager.AddFloor(people);
             }
-            //elevatorManager.GiveOrdersToElevator();
-            var task2 = Task.Run(() =>
-            {
-                elevatorManager.GiveOrdersToElevator();
 
-            });
+            //elevatorManager.GiveOrdersToElevator();
+            //var task2 = Task.Run(() =>
+            //{
+            //    elevatorManager.GiveOrdersToElevator();
+
+            //});
             var task = Task.Run(() =>
             {
                 elevatorManager.elevators[0].RunWithElevatorManager();
             });
-            
-            //var runElevator2 = Task.Run(() =>
-            //{
-            //    elevatorManager.elevators[1].Run();
-            //});
-            //var task2 = Task.Run(() => {
-            //    elevator.AddFloorsAsync();
-            //});
-            //var task2 = Task.Run(()=>
-            //{ 
-            //    elevator.AddPFRAsync(); 
-            
-            //});
+            var task3 = Task.Run(() =>
+            {
+                elevatorManager.GiveOrdersToElevator();
 
-            ////elevator.AddNewFloor(5);
+            });
+            var taskRequest = Task.Run(() =>
+            {
+
+                elevatorManager.AddRequestAsync();
+            });
             task.Wait();
             Console.ReadLine();
             
