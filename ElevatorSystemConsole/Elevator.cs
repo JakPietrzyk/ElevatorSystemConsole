@@ -76,6 +76,10 @@ namespace ElevatorSystemConsole
                             Thread.Sleep(sleep);
                             Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
                         }
+                        if(currentFloor== nextFloor)
+                    {
+                        Console.WriteLine("stopped");
+                    }
                         Thread.Sleep(sleep);
                         if (floorQueue.Count == 0)
                         {
@@ -106,9 +110,16 @@ namespace ElevatorSystemConsole
                             Thread.Sleep(sleep);
                             Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
                         }
-                        Thread.Sleep(sleep);
-                        //currentFloor = nextFloor;
-                        direction = "up";
+                    if (currentFloor == nextFloor)
+                    {
+                        Console.WriteLine("stopped");
+                    }
+                    Thread.Sleep(sleep);
+                        if(floorQueue.Count==0)
+                        {
+                            direction = "up";
+                        }
+                        
                         return;
                     }
                 }
@@ -138,7 +149,8 @@ namespace ElevatorSystemConsole
                         Console.WriteLine("At {0} floor, next floor: {1} | direction {2}", currentFloor, nextFloor, direction);
                     }
                 }
-                //}
+            
+            //}
 
         }
 
