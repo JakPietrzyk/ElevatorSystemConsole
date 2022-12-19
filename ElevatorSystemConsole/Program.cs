@@ -19,9 +19,9 @@ namespace Program
 
 
             QueueManager peopleFloors = new QueueManager();
-            peopleFloors.AddSort(0, 2);//up
-            peopleFloors.AddSort(1, 4);//up
-            peopleFloors.AddSort(3, 1);//down
+            //peopleFloors.AddSort(0, 2);//up
+            //peopleFloors.AddSort(1, 4);//up
+            //peopleFloors.AddSort(3, 1);//down
 
             //0->1->2->4 | up
             //4->3->1->0 | down
