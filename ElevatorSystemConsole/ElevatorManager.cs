@@ -190,11 +190,11 @@ namespace ElevatorSystemConsole
         public void MakeStep()
         {
             Thread.Sleep(500);
-            Console.WriteLine("makestep");
+            //Console.WriteLine("makestep");
             // if (isEmpty == false)
             //{
-            GiveOrdersToElevator();
-            //UpdateElevetorQueue();
+            //GiveOrdersToElevator();
+            UpdateElevetorQueue();
            // }
 
             elevators[0].Run();
