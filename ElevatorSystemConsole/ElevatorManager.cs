@@ -27,33 +27,11 @@ namespace ElevatorSystemConsole
         }
         public async Task UpdateElevetorQueue()
         {
-            for (int i = 0; i < elevators.Count; i++)
+            if(floorDown.Count>0||floorUp.Count>0)
             {
-                if (elevators[i].isRunning == true && elevators[i].direction == "up")
+                for (int i = 0; i < elevators.Count; i++)
                 {
-                    while(floorUp.Count>0)
-                    {
-                        if(!elevators[i].floorQueue.Contains(floorUp.First()))
-                        {
-                            elevators[i].floorQueue.Add(floorUp.First());
-                        }
-                        floorUp.Remove(floorUp.First());
-                    }
-                }
-                else if(elevators[i].isRunning == true && elevators[i].direction == "down")
-                {
-                    while (floorDown.Count > 0)
-                    {
-                        if (!elevators[i].floorQueue.Contains(floorDown.First()))
-                        {
-                            elevators[i].floorQueue.Add(floorDown.First());
-                        }
-                        floorDown.Remove(floorDown.First());
-                    }
-                }
-                else if (elevators[i].floorQueue.Count==0)
-                {
-                    if(floorUp.Count>floorDown.Count)
+                    if (elevators[i].isRunning == true && elevators[i].direction == "up")
                     {
                         while (floorUp.Count > 0)
                         {
@@ -63,9 +41,8 @@ namespace ElevatorSystemConsole
                             }
                             floorUp.Remove(floorUp.First());
                         }
-                        elevators[i].direction = "up";
                     }
-                    else
+                    else if (elevators[i].isRunning == true && elevators[i].direction == "down")
                     {
                         while (floorDown.Count > 0)
                         {
@@ -75,11 +52,38 @@ namespace ElevatorSystemConsole
                             }
                             floorDown.Remove(floorDown.First());
                         }
-                        elevators[i].direction = "down";
                     }
-                    elevators[i].isRunning = true;
+                    else if (elevators[i].floorQueue.Count == 0)
+                    {
+                        if (floorUp.Count > floorDown.Count)
+                        {
+                            while (floorUp.Count > 0)
+                            {
+                                if (!elevators[i].floorQueue.Contains(floorUp.First()))
+                                {
+                                    elevators[i].floorQueue.Add(floorUp.First());
+                                }
+                                floorUp.Remove(floorUp.First());
+                            }
+                            elevators[i].direction = "up";
+                        }
+                        else
+                        {
+                            while (floorDown.Count > 0)
+                            {
+                                if (!elevators[i].floorQueue.Contains(floorDown.First()))
+                                {
+                                    elevators[i].floorQueue.Add(floorDown.First());
+                                }
+                                floorDown.Remove(floorDown.First());
+                            }
+                            elevators[i].direction = "down";
+                        }
+                        elevators[i].isRunning = true;
+                    }
                 }
             }
+            
         }
         public async Task GiveOrdersToElevator()
         {

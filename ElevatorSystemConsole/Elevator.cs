@@ -50,13 +50,9 @@ namespace ElevatorSystemConsole
                 idleFloor = maxFloor; //max floor
             }
         }
-        public void MakeStep()
-        {
-
-        }
         public void NewRun()
         {
-            if (floorQueue.Count == 0)
+            if (floorQueue.Count == 0 && currentFloor==nextFloor || direction=="idle")
             {
                 direction = "idle";
                 isRunning = false;
@@ -65,7 +61,6 @@ namespace ElevatorSystemConsole
                 {
                     Console.WriteLine("Nothing to do going back to idle floor");
                 }
-
                 if (currentFloor != nextFloor)
                 {
                     if (currentFloor > nextFloor)
@@ -80,16 +75,17 @@ namespace ElevatorSystemConsole
                     Console.WriteLine("At {0} floor, next floor: {1} | direction {2} || Id {3}", currentFloor, nextFloor, direction, Id);
                 }
             }
-            while (direction == "up" )
+            else if (direction == "up" )
             {
 
                 Console.WriteLine("At {0} floor, next floor: {1} | direction {2} || Id {3}", currentFloor, nextFloor, direction, Id);
                 if (currentFloor==nextFloor && floorQueue.Count>0)
                 {
+                    Console.WriteLine("stopped");
                     nextFloor = floorQueue.First();
                     floorQueue.Remove(floorQueue.First());
                 }
-                else if(currentFloor!=nextFloor)
+                if(currentFloor!=nextFloor)
                 {
                     if (currentFloor > nextFloor)
                     {
@@ -106,20 +102,22 @@ namespace ElevatorSystemConsole
                 Thread.Sleep(sleep);
                 if(floorQueue.Count==0 && currentFloor==nextFloor)
                 {
+                    Console.WriteLine("stopped");
                     Console.WriteLine("At {0} floor, next floor: {1} | direction {2} || Id {3}", currentFloor, nextFloor, direction, Id);
                     direction = "down";
                     return;
                 }
             }
-            while(direction == "down")
+            else if(direction == "down")
             {
                 Console.WriteLine("At {0} floor, next floor: {1} | direction {2} || Id {3}", currentFloor, nextFloor, direction, Id);
                 if (currentFloor == nextFloor && floorQueue.Count>0)
                 {
+                    Console.WriteLine("stopped");
                     nextFloor = floorQueue.First();
                     floorQueue.Remove(floorQueue.First());
                 }
-                else if (currentFloor != nextFloor)
+                if (currentFloor != nextFloor)
                 {
                     if (currentFloor > nextFloor)
                     {
@@ -136,6 +134,7 @@ namespace ElevatorSystemConsole
                 Thread.Sleep(sleep);
                 if (floorQueue.Count == 0 && currentFloor == nextFloor)
                 {
+                    Console.WriteLine("stopped");
                     Console.WriteLine("At {0} floor, next floor: {1} | direction {2} || Id {3}", currentFloor, nextFloor, direction, Id);
                     direction = "up";
                     return;
@@ -144,6 +143,13 @@ namespace ElevatorSystemConsole
             
 
         }
+
+
+
+
+
+
+
         public void Run()
         {
                 while (direction == "up")
